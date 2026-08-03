@@ -1,7 +1,6 @@
-# Curso de Claude Code de Platzi
-## Profe
+# Curso de Claude Code
 
-- Eduardo Alvarez
+- Freddy Patarroyo
 
 ## Distribución del carpetas
 
