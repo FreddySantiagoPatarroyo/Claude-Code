@@ -8,6 +8,9 @@ export interface Course {
   // Campos opcionales de rating
   average_rating?: number; // 0.0 - 5.0
   total_ratings?: number; // Cantidad de ratings
+  // Conteo de ratings por valor (1-5). El backend serializa las keys del dict
+  // Python (int) como strings en JSON, ej. {"1": 0, "2": 3, "3": 10, "4": 25, "5": 40}
+  rating_distribution?: Record<string, number>;
 }
 
 // Class types

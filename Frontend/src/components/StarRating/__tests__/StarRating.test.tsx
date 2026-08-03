@@ -3,8 +3,8 @@
  * Tests unitarios para el componente de calificación con estrellas
  */
 
-import { describe, it, expect } from 'vitest';
-import { render, screen } from '@testing-library/react';
+import { describe, it, expect, vi } from 'vitest';
+import { render, screen, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { StarRating } from '../StarRating';
 
@@ -182,6 +182,83 @@ describe('StarRating Component', () => {
       render(<StarRating rating={4.5} readonly={true} showCount={true} totalRatings={50} />);
 
       expect(screen.getByText('(50)')).toBeInTheDocument();
+    });
+  });
+
+  describe('Interactive Mode (readonly=false)', () => {
+    // Nota: los class names de CSS Modules van hasheados en el entorno de
+    // test (ver deuda técnica preexistente en este mismo archivo, describes
+    // "Size Variants"/"Edge Cases" con selectores `.star`/`.large` literales
+    // que ya fallaban antes de este cambio). Para no depender del hash, se
+    // selecciona el <span> de cada estrella por su atributo estable
+    // `aria-hidden="true"` (el `span[...]` filtra el <svg> interno, que
+    // también lo tiene).
+    const getStarSpans = (container: HTMLElement) =>
+      container.querySelectorAll('span[aria-hidden="true"]');
+
+    it('calls onSelect with the correct star index on click', () => {
+      const onSelect = vi.fn();
+      const { container } = render(
+        <StarRating rating={3} readonly={false} onSelect={onSelect} />
+      );
+
+      const stars = getStarSpans(container);
+      fireEvent.click(stars[2]); // tercera estrella -> índice 3
+
+      expect(onSelect).toHaveBeenCalledTimes(1);
+      expect(onSelect).toHaveBeenCalledWith(3);
+    });
+
+    it('calls onHover with the correct star index on mouse enter', () => {
+      const onHover = vi.fn();
+      const { container } = render(
+        <StarRating rating={3} readonly={false} onHover={onHover} />
+      );
+
+      const stars = getStarSpans(container);
+      fireEvent.mouseEnter(stars[4]); // quinta estrella -> índice 5
+
+      expect(onHover).toHaveBeenCalledTimes(1);
+      expect(onHover).toHaveBeenCalledWith(5);
+    });
+
+    it('does not throw when onHover/onSelect are not provided in interactive mode', () => {
+      const { container } = render(<StarRating rating={3} readonly={false} />);
+
+      const stars = getStarSpans(container);
+      expect(() => {
+        fireEvent.mouseEnter(stars[0]);
+        fireEvent.click(stars[0]);
+      }).not.toThrow();
+    });
+  });
+
+  describe('Readonly Mode (no listeners)', () => {
+    const getStarSpans = (container: HTMLElement) =>
+      container.querySelectorAll('span[aria-hidden="true"]');
+
+    it('does not call onSelect on click when readonly is true', () => {
+      const onSelect = vi.fn();
+      const { container } = render(
+        <StarRating rating={3} readonly={true} onSelect={onSelect} />
+      );
+
+      const stars = getStarSpans(container);
+      fireEvent.click(stars[2]);
+
+      expect(onSelect).not.toHaveBeenCalled();
+    });
+
+    it('does not call onHover on mouse enter when readonly is true', () => {
+      const onHover = vi.fn();
+      const { container } = render(
+        <StarRating rating={3} readonly={true} onHover={onHover} />
+      );
+
+      const stars = getStarSpans(container);
+      fireEvent.mouseEnter(stars[2]);
+
+      expect(onHover).not.toHaveBeenCalled();
     });
   });
 });

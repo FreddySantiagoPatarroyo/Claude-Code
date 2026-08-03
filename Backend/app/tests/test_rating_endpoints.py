@@ -312,3 +312,87 @@ class TestRatingEndpointsContractCompliance:
         expected_fields = {"average_rating", "total_ratings", "rating_distribution"}
         actual_fields = set(data.keys())
         assert actual_fields == expected_fields
+
+
+class TestRateLimiting:
+    """Tests for rate limiting (5/minute per IP) on write endpoints."""
+
+    def test_post_rating_rate_limit_exceeded(self, client, mock_course_service):
+        """6th POST within a minute from the same IP is rejected with 429."""
+        # Arrange
+        mock_course_service.add_course_rating.return_value = MOCK_RATING
+
+        # Act / Assert
+        for _ in range(5):
+            response = client.post(
+                "/courses/1/ratings",
+                json={"user_id": 42, "rating": 5}
+            )
+            assert response.status_code == 201
+
+        response = client.post(
+            "/courses/1/ratings",
+            json={"user_id": 42, "rating": 5}
+        )
+        assert response.status_code == 429
+
+    def test_put_rating_rate_limit_exceeded(self, client, mock_course_service):
+        """6th PUT within a minute from the same IP is rejected with 429."""
+        # Arrange
+        mock_course_service.update_course_rating.return_value = MOCK_RATING
+
+        # Act / Assert
+        for _ in range(5):
+            response = client.put(
+                "/courses/1/ratings/42",
+                json={"user_id": 42, "rating": 3}
+            )
+            assert response.status_code == 200
+
+        response = client.put(
+            "/courses/1/ratings/42",
+            json={"user_id": 42, "rating": 3}
+        )
+        assert response.status_code == 429
+
+    def test_delete_rating_rate_limit_exceeded(self, client, mock_course_service):
+        """6th DELETE within a minute from the same IP is rejected with 429."""
+        # Arrange
+        mock_course_service.delete_course_rating.return_value = True
+
+        # Act / Assert
+        for _ in range(5):
+            response = client.delete("/courses/1/ratings/42")
+            assert response.status_code == 204
+
+        response = client.delete("/courses/1/ratings/42")
+        assert response.status_code == 429
+
+    def test_rate_limit_is_per_ip_not_per_resource(self, client, mock_course_service):
+        """The limit accumulates across different course_id/user_id from the same IP."""
+        # Arrange
+        mock_course_service.add_course_rating.return_value = MOCK_RATING
+
+        # Act / Assert: 5 calls against different course_id values still share one bucket
+        for course_id in range(1, 6):
+            response = client.post(
+                f"/courses/{course_id}/ratings",
+                json={"user_id": 42, "rating": 5}
+            )
+            assert response.status_code == 201
+
+        response = client.post(
+            "/courses/999/ratings",
+            json={"user_id": 42, "rating": 5}
+        )
+        assert response.status_code == 429
+
+    def test_get_ratings_not_rate_limited(self, client, mock_course_service):
+        """Read-only rating endpoints are not subject to the write rate limit."""
+        # Arrange
+        mock_course_service.get_course_ratings.return_value = [MOCK_RATING]
+
+        # Act / Assert
+        for _ in range(10):
+            response = client.get("/courses/1/ratings")
+            assert response.status_code != 429

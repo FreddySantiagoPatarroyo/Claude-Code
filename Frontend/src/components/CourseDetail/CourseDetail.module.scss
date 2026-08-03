@@ -102,6 +102,12 @@
   margin-bottom: 1.5rem;
 }
 
+.ratingContainer {
+  margin-bottom: 1rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid color('light-gray');
+}
+
 .stats {
   display: flex;
   gap: 2rem;

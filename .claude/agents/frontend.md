@@ -45,7 +45,7 @@ Eres un especialista en desarrollo frontend con expertise en:
 - **Performance**: Optimiza renders, lazy loading cuando sea apropiado
 - **Testing**: Crea tests para interacciones y lógica de componentes
 
-## Comandos Frecuentes que Ejecutarás  
+## Comandos Frecuentes que Ejecutarás
 - `! npm run dev`
 - `! npm run build`
 - `! npm run test`

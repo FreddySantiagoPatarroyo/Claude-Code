@@ -133,14 +133,14 @@ async function getCourseRatings(courseId: number): Promise<CourseRating[]> {
 }
 
 /**
- * GET /courses/{course_id}/ratings/{user_id}
+ * GET /courses/{course_id}/ratings/user/{user_id}
  * Obtiene el rating de un usuario específico para un curso
  */
 async function getUserRating(
   courseId: number,
   userId: number
 ): Promise<CourseRating | null> {
-  const url = `${API_BASE_URL}/courses/${courseId}/ratings/${userId}`;
+  const url = `${API_BASE_URL}/courses/${courseId}/ratings/user/${userId}`;
 
   try {
     const response = await fetchWithTimeout(url, {

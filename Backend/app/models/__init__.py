@@ -16,5 +16,5 @@ __all__ = [
     'Course',
     'Lesson',
     'course_teachers',
-    'CourseRating'
-] 
+    'CourseRating',
+]

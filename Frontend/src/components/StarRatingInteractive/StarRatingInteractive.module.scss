@@ -1,0 +1,35 @@
+/**
+ * StarRatingInteractive Component Styles
+ * Estados visuales de hover/carga/éxito/error para el rating interactivo.
+ */
+@import '../../styles/vars.scss';
+
+.container {
+  display: inline-flex;
+  flex-direction: column;
+  gap: 0.375rem;
+}
+
+// Confirmación visual breve al calificar con éxito.
+.success {
+  :global(.star.full),
+  :global(.star.half) {
+    color: color('primary');
+  }
+}
+
+// Feedback visual cuando la escritura falla: no oculta el rating, solo lo señala.
+.error {
+  opacity: 0.85;
+}
+
+.status {
+  font-size: 0.8125rem;
+  color: color('text-secondary');
+}
+
+.errorMessage {
+  font-size: 0.8125rem;
+  color: color('primary');
+  font-weight: 600;
+}

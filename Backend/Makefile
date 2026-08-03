@@ -1,4 +1,4 @@
-.PHONY: start stop restart build logs clean migrate create-migration seed seed-fresh help
+.PHONY: start stop restart build logs clean migrate create-migration seed seed-fresh test add-dep help
 
 # Comando principal para iniciar el entorno de desarrollo
 start:
@@ -42,6 +42,19 @@ seed-fresh:
 	docker-compose exec api bash -c "cd /app && uv run python -m app.db.seed clear"
 	docker-compose exec api bash -c "cd /app && uv run python -m app.db.seed"
 
+# Ejecutar las pruebas dentro del contenedor
+test:
+	docker-compose exec api bash -c "cd /app && uv run pytest -v"
+
+# Agregar una nueva dependencia con uv (escribe directo en pyproject.toml/uv.lock del host)
+# MSYS_NO_PATHCONV evita que Git Bash/MSYS reescriba los paths absolutos del -v en Windows
+add-dep:
+	@read -p "Ingrese el nombre del paquete a instalar: " package; \
+	MSYS_NO_PATHCONV=1 docker-compose run --rm --no-deps \
+		-v "$$(pwd)/pyproject.toml:/app/pyproject.toml" \
+		-v "$$(pwd)/uv.lock:/app/uv.lock" \
+		api uv add "$$package"
+
 # Mostrar ayuda
 help:
 	@echo "Comandos disponibles:"
@@ -55,7 +68,9 @@ help:
 	@echo "  make create-migration  - Crear una nueva migración"
 	@echo "  make seed              - Ejecutar seed de datos"
 	@echo "  make seed-fresh        - Limpiar y recrear datos de seed"
+	@echo "  make test              - Ejecutar las pruebas dentro del contenedor"
+	@echo "  make add-dep           - Agregar una nueva dependencia con uv"
 	@echo "  make help              - Mostrar esta ayuda"
 
 # Comando por defecto
-.DEFAULT_GOAL := help 
+.DEFAULT_GOAL := help

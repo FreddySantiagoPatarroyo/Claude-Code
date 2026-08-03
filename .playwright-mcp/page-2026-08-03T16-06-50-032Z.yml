@@ -1,0 +1,161 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e2]:
+    - banner [ref=e3]:
+      - generic [ref=e4]: PLATZI
+      - generic [ref=e5]: FLIX
+      - generic [ref=e6]: CURSOS
+    - generic [ref=e7]: PLATZI
+    - generic [ref=e8]: FLIX
+    - main [ref=e9]:
+      - generic [ref=e10]:
+        - link [ref=e11] [cursor=pointer]:
+          - /url: /course/curso-de-react
+          - article [ref=e12]:
+            - img "Curso de React" [ref=e14]
+            - generic [ref=e15]:
+              - heading "Curso de React" [level=2] [ref=e16]
+              - paragraph [ref=e17]: Aprende React desde cero hasta convertirte en un desarrollador profesional
+              - 'img "Rating: 5.0 out of 5 stars, 1 ratings" [ref=e19]':
+                - generic "1 ratings" [ref=e36]: (1)
+        - link [ref=e37] [cursor=pointer]:
+          - /url: /course/curso-de-python
+          - article [ref=e38]:
+            - img "Curso de Python" [ref=e40]
+            - generic [ref=e41]:
+              - heading "Curso de Python" [level=2] [ref=e42]
+              - paragraph [ref=e43]: Domina Python y sus frameworks más populares
+              - 'img "Rating: 0.0 out of 5 stars" [ref=e45]'
+        - link [ref=e62] [cursor=pointer]:
+          - /url: /course/curso-de-javascript
+          - article [ref=e63]:
+            - img "Curso de JavaScript" [ref=e65]
+            - generic [ref=e66]:
+              - heading "Curso de JavaScript" [level=2] [ref=e67]
+              - paragraph [ref=e68]: JavaScript moderno y sus mejores prácticas
+              - 'img "Rating: 0.0 out of 5 stars" [ref=e70]'
+        - link [ref=e87] [cursor=pointer]:
+          - /url: /course/test-course-1784749224.202997
+          - article [ref=e88]:
+            - img "Test Course" [ref=e90]
+            - generic [ref=e91]:
+              - heading "Test Course" [level=2] [ref=e92]
+              - paragraph [ref=e93]: Test Description
+              - 'img "Rating: 0.0 out of 5 stars" [ref=e95]'
+        - link [ref=e112] [cursor=pointer]:
+          - /url: /course/test-course-1784749224.237449
+          - article [ref=e113]:
+            - img "Test Course" [ref=e115]
+            - generic [ref=e116]:
+              - heading "Test Course" [level=2] [ref=e117]
+              - paragraph [ref=e118]: Test Description
+              - 'img "Rating: 0.0 out of 5 stars" [ref=e120]'
+        - link [ref=e137] [cursor=pointer]:
+          - /url: /course/test-course-1784749224.26622
+          - article [ref=e138]:
+            - img "Test Course" [ref=e140]
+            - generic [ref=e141]:
+              - heading "Test Course" [level=2] [ref=e142]
+              - paragraph [ref=e143]: Test Description
+              - 'img "Rating: 3.0 out of 5 stars, 1 ratings" [ref=e145]':
+                - generic "1 ratings" [ref=e162]: (1)
+        - link [ref=e163] [cursor=pointer]:
+          - /url: /course/test-course-1784749347.56968
+          - article [ref=e164]:
+            - img "Test Course" [ref=e166]
+            - generic [ref=e167]:
+              - heading "Test Course" [level=2] [ref=e168]
+              - paragraph [ref=e169]: Test Description
+              - 'img "Rating: 0.0 out of 5 stars" [ref=e171]'
+        - link [ref=e188] [cursor=pointer]:
+          - /url: /course/test-course-1784749347.612088
+          - article [ref=e189]:
+            - img "Test Course" [ref=e191]
+            - generic [ref=e192]:
+              - heading "Test Course" [level=2] [ref=e193]
+              - paragraph [ref=e194]: Test Description
+              - 'img "Rating: 0.0 out of 5 stars" [ref=e196]'
+        - link [ref=e213] [cursor=pointer]:
+          - /url: /course/test-course-1784749347.647997
+          - article [ref=e214]:
+            - img "Test Course" [ref=e216]
+            - generic [ref=e217]:
+              - heading "Test Course" [level=2] [ref=e218]
+              - paragraph [ref=e219]: Test Description
+              - 'img "Rating: 3.0 out of 5 stars, 1 ratings" [ref=e221]':
+                - generic "1 ratings" [ref=e238]: (1)
+        - link [ref=e239] [cursor=pointer]:
+          - /url: /course/test-course-1784749564.747664
+          - article [ref=e240]:
+            - img "Test Course" [ref=e242]
+            - generic [ref=e243]:
+              - heading "Test Course" [level=2] [ref=e244]
+              - paragraph [ref=e245]: Test Description
+              - 'img "Rating: 0.0 out of 5 stars" [ref=e247]'
+        - link [ref=e264] [cursor=pointer]:
+          - /url: /course/test-course-1784749564.772657
+          - article [ref=e265]:
+            - img "Test Course" [ref=e267]
+            - generic [ref=e268]:
+              - heading "Test Course" [level=2] [ref=e269]
+              - paragraph [ref=e270]: Test Description
+              - 'img "Rating: 0.0 out of 5 stars" [ref=e272]'
+        - link [ref=e289] [cursor=pointer]:
+          - /url: /course/test-course-1784749564.79587
+          - article [ref=e290]:
+            - img "Test Course" [ref=e292]
+            - generic [ref=e293]:
+              - heading "Test Course" [level=2] [ref=e294]
+              - paragraph [ref=e295]: Test Description
+              - 'img "Rating: 3.0 out of 5 stars, 1 ratings" [ref=e297]':
+                - generic "1 ratings" [ref=e314]: (1)
+        - link [ref=e315] [cursor=pointer]:
+          - /url: /course/test-course-1785266716.082443
+          - article [ref=e316]:
+            - img "Test Course" [ref=e318]
+            - generic [ref=e319]:
+              - heading "Test Course" [level=2] [ref=e320]
+              - paragraph [ref=e321]: Test Description
+              - 'img "Rating: 0.0 out of 5 stars" [ref=e323]'
+        - link [ref=e340] [cursor=pointer]:
+          - /url: /course/test-course-1785266716.10284
+          - article [ref=e341]:
+            - img "Test Course" [ref=e343]
+            - generic [ref=e344]:
+              - heading "Test Course" [level=2] [ref=e345]
+              - paragraph [ref=e346]: Test Description
+              - 'img "Rating: 0.0 out of 5 stars" [ref=e348]'
+        - link [ref=e365] [cursor=pointer]:
+          - /url: /course/test-course-1785266716.1172
+          - article [ref=e366]:
+            - img "Test Course" [ref=e368]
+            - generic [ref=e369]:
+              - heading "Test Course" [level=2] [ref=e370]
+              - paragraph [ref=e371]: Test Description
+              - 'img "Rating: 3.0 out of 5 stars, 1 ratings" [ref=e373]':
+                - generic "1 ratings" [ref=e390]: (1)
+        - link [ref=e391] [cursor=pointer]:
+          - /url: /course/test-course-1785267308.486894
+          - article [ref=e392]:
+            - img "Test Course" [ref=e394]
+            - generic [ref=e395]:
+              - heading "Test Course" [level=2] [ref=e396]
+              - paragraph [ref=e397]: Test Description
+              - 'img "Rating: 0.0 out of 5 stars" [ref=e399]'
+        - link [ref=e416] [cursor=pointer]:
+          - /url: /course/test-course-1785267308.515994
+          - article [ref=e417]:
+            - img "Test Course" [ref=e419]
+            - generic [ref=e420]:
+              - heading "Test Course" [level=2] [ref=e421]
+              - paragraph [ref=e422]: Test Description
+              - 'img "Rating: 0.0 out of 5 stars" [ref=e424]'
+        - link [ref=e441] [cursor=pointer]:
+          - /url: /course/test-course-1785267308.53717
+          - article [ref=e442]:
+            - img "Test Course" [ref=e444]
+            - generic [ref=e445]:
+              - heading "Test Course" [level=2] [ref=e446]
+              - paragraph [ref=e447]: Test Description
+              - 'img "Rating: 3.0 out of 5 stars, 1 ratings" [ref=e449]':
+                - generic "1 ratings" [ref=e466]: (1)
+  - alert [ref=e467]

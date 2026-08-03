@@ -12,6 +12,8 @@ interface StarRatingProps {
   size?: 'small' | 'medium' | 'large'; // Tamaño visual
   readonly?: boolean; // Modo solo lectura
   className?: string; // Clase CSS adicional
+  onHover?: (star: number) => void; // Callback de hover (solo modo interactivo, readonly=false)
+  onSelect?: (star: number) => void; // Callback de selección (solo modo interactivo, readonly=false)
 }
 
 /**
@@ -64,6 +66,8 @@ export const StarRating = ({
   size = 'medium',
   readonly = false,
   className = '',
+  onHover,
+  onSelect,
 }: StarRatingProps) => {
   /**
    * Determina el estado de relleno de cada estrella
@@ -93,6 +97,12 @@ export const StarRating = ({
             key={star}
             className={`${styles.star} ${styles[getStarFillState(star)]}`}
             aria-hidden="true"
+            {...(!readonly
+              ? {
+                  onMouseEnter: () => onHover?.(star),
+                  onClick: () => onSelect?.(star),
+                }
+              : {})}
           >
             <StarIcon fillState={getStarFillState(star)} />
           </span>

@@ -1,7 +1,11 @@
-from fastapi import FastAPI, HTTPException, Depends, status
+from fastapi import FastAPI, HTTPException, Depends, status, Request
+from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy import text
 from sqlalchemy.orm import Session
 from typing import List
+from slowapi import Limiter, _rate_limit_exceeded_handler
+from slowapi.util import get_remote_address
+from slowapi.errors import RateLimitExceeded
 from app.core.config import settings
 from app.db.base import engine, get_db
 from app.services.course_service import CourseService
@@ -47,6 +51,24 @@ app = FastAPI(
         }
     ]
 )
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=[
+        "http://localhost:3000",
+        "http://localhost:3001",
+        "http://localhost:3002",
+        "http://localhost:3003",
+        "http://localhost:3004",
+    ],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+limiter = Limiter(key_func=get_remote_address)
+app.state.limiter = limiter
+app.add_exception_handler(RateLimitExceeded, _rate_limit_exceeded_handler)
 
 
 def get_course_service(db: Session = Depends(get_db)) -> CourseService:
@@ -154,7 +176,9 @@ def get_class_by_id(class_id: int, db: Session = Depends(get_db)) -> dict:
         404: {"model": ErrorResponse, "description": "Course not found"}
     }
 )
+@limiter.shared_limit("5/minute;30/hour", scope="post_course_rating")
 def add_course_rating(
+    request: Request,
     course_id: int,
     rating_data: RatingRequest,
     course_service: CourseService = Depends(get_course_service)
@@ -352,7 +376,9 @@ def get_user_course_rating(
         404: {"model": ErrorResponse, "description": "Rating not found"}
     }
 )
+@limiter.shared_limit("5/minute;30/hour", scope="update_course_rating")
 def update_course_rating(
+    request: Request,
     course_id: int,
     user_id: int,
     rating_data: RatingRequest,
@@ -405,7 +431,9 @@ def update_course_rating(
         404: {"model": ErrorResponse, "description": "Rating not found"}
     }
 )
+@limiter.shared_limit("5/minute;30/hour", scope="delete_course_rating")
 def delete_course_rating(
+    request: Request,
     course_id: int,
     user_id: int,
     course_service: CourseService = Depends(get_course_service)

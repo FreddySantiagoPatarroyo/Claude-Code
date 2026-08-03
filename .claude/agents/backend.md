@@ -40,7 +40,7 @@ Eres un especialista en desarrollo backend con expertise en:
 
 ## Comandos Frecuentes que Ejecutarás
 - `! alembic revision --autogenerate -m "mensaje"`
-- `! alembic upgrade head`  
+- `! alembic upgrade head`
 - `! pytest Backend/app/test_*.py -v`
 - `! python -m uvicorn app.main:app --reload`
 
